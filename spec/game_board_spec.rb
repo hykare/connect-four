@@ -73,5 +73,26 @@ describe GameBoard do
     end
   end
 
+  describe '#full?' do
+    context 'when the board is full' do
+      let(:state) do
+        [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6],
+         [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]]
+      end
+      subject(:game_board) { described_class.new(state) }
+      it 'returns true' do
+        expect(game_board).to be_full
+      end
+    end
+
+    context 'when the board is not full' do
+      let(:state) { [[1, 2, 3, 4, 5, 6], [1, 2, 3], [], [1, 2, 3, 4, 5, 6], [], [1, 2, 3, 4, 5, 6], []] }
+      subject(:game_board) { described_class.new(state) }
+      it 'returns false' do
+        expect(game_board).not_to be_full
+      end
+    end
+  end
+
   describe '#game_over?'
 end

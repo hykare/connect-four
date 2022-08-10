@@ -32,4 +32,8 @@ class GameBoard
     print token_rows.join(separator_row)
     print bottom_row
   end
+
+  def full?
+    state.all? { |row| row.length == 6 }
+  end
 end
