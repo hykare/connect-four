@@ -94,5 +94,45 @@ describe GameBoard do
     end
   end
 
+  describe '#win?' do
+    let(:p1) { :p1 }
+    let(:p2) { :p2 }
+    context 'when player has 4 tokens in a horizontal line' do
+      let(:state) { [[p1, p1], [p1], [p1, p2], [p2, p2], [p1, p2, p1], [p2, p2], []] }
+      subject(:game_board) { described_class.new(state) }
+
+      it 'returns true' do
+        expect(game_board.win?(p2)).to be true
+      end
+    end
+
+    context 'when player has 4 tokens in a vertical line' do
+      let(:state) { [[p2, p1], [p1, p1, p1], [p2, p1], [p1, p2, p1], [p1, p2, p2, p2, p2], [p1, p2], [p2]] }
+      subject(:game_board) { described_class.new(state) }
+
+      it 'returns true' do
+        expect(game_board.win?(p2)).to be true
+      end
+    end
+
+    context 'when player has 4 tokens in a up-right diagonal line' do
+      let(:state) { [[p1, p2, p2], [p2, p1], [p2, p2], [p1, p1, p2], [p1, p1, p2, p2], [p1, p1], [p2]] }
+      subject(:game_board) { described_class.new(state) }
+
+      it 'returns true' do
+        expect(game_board.win?(p2)).to be true
+      end
+    end
+
+    context 'when player has 4 tokens in a up-left diagonal line' do
+      let(:state) { [[p2, p2, p1, p2, p2, p2], [p1, p1, p2, p1, p2], [p1, p2, p2, p2], [p2, p1, p2], [], [], []] }
+      subject(:game_board) { described_class.new(state) }
+
+      it 'returns true' do
+        expect(game_board.win?(p2)).to be true
+      end
+    end
+  end
+
   describe '#game_over?'
 end

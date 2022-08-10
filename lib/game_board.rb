@@ -36,4 +36,36 @@ class GameBoard
   def full?
     state.all? { |row| row.length == 6 }
   end
+
+  def win?(player_token)
+    # horizontal
+    (0..5).each do |row|
+      (0..3).each do |column|
+        line = [state[column][row], state[column + 1][row], state[column + 2][row], state[column + 3][row]]
+        return true if line.all? { |token| token == player_token }
+      end
+    end
+    # vertical
+    (0..6).each do |column|
+      (0..2).each do |row|
+        line = [state[column][row], state[column][row + 1], state[column][row + 2], state[column][row + 3]]
+        return true if line.all? { |token| token == player_token }
+      end
+    end
+    # diagonal-right
+    (0..3).each do |column|
+      (0..2).each do |row|
+        line = [state[column][row], state[column + 1][row + 1], state[column + 2][row + 2], state[column + 3][row + 3]]
+        return true if line.all? { |token| token == player_token }
+      end
+    end
+    # diagonal-left
+    (3..6).each do |column|
+      (0..2).each do |row|
+        line = [state[column][row], state[column - 1][row + 1], state[column - 2][row + 2], state[column - 3][row + 3]]
+        return true if line.all? { |token| token == player_token }
+      end
+    end
+    false
+  end
 end
