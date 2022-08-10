@@ -1,7 +1,53 @@
 require_relative '../lib/game_board'
 
 describe GameBoard do
-  describe '#draw'
+  describe '#draw' do
+    context 'when the board is empty' do
+      subject(:game_board) { described_class.new }
+      it 'draws an empty board' do
+        empty_board = <<~BOARD
+          ┏╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┓
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┗━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┛
+        BOARD
+        expect { game_board.draw }.to output(empty_board).to_stdout
+      end
+    end
+
+    context 'when there are tokens in the board' do
+      p1 = '🟡'
+      let(:state) { [[p1, p1], [p1, p1, p1], [p1, p1], [], [p1], [p1], []] }
+      subject(:game_board) { described_class.new(state) }
+      it 'draws tokens at the bottom of the columns' do
+        board_with_tokens = <<~BOARD
+          ┏╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┓
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃    ┃ 🟡 ┃    ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃ 🟡 ┃ 🟡 ┃ 🟡 ┃    ┃    ┃    ┃    ┃
+          ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
+          ┃ 🟡 ┃ 🟡 ┃ 🟡 ┃    ┃ 🟡 ┃ 🟡 ┃    ┃
+          ┗━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┛
+        BOARD
+        expect { game_board.draw }.to output(board_with_tokens).to_stdout
+      end
+    end
+  end
 
   describe '#update' do
     context 'when the board is empty' do
