@@ -13,6 +13,7 @@ class GameBoard
     top_row = "┏╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┳╶╶╶╶┓\n"
     bottom_row = "┗━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┛\n"
     separator_row = "┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫\n"
+    column_numbers = "  1    2    3    4    5    6    7\n"
     token_rows = []
 
     5.downto(0) do |row|
@@ -31,6 +32,7 @@ class GameBoard
     print top_row
     print token_rows.join(separator_row)
     print bottom_row
+    print column_numbers
   end
 
   def full?

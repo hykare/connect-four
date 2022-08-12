@@ -19,6 +19,7 @@ describe GameBoard do
           ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
           ┃    ┃    ┃    ┃    ┃    ┃    ┃    ┃
           ┗━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┛
+            1    2    3    4    5    6    7
         BOARD
         expect { game_board.draw }.to output(empty_board).to_stdout
       end
@@ -43,6 +44,7 @@ describe GameBoard do
           ┣    ╋    ╋    ╋    ╋    ╋    ╋    ┫
           ┃ 🟡 ┃ 🟡 ┃ 🟡 ┃    ┃ 🟡 ┃ 🟡 ┃    ┃
           ┗━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┛
+            1    2    3    4    5    6    7
         BOARD
         expect { game_board.draw }.to output(board_with_tokens).to_stdout
       end
