@@ -100,7 +100,7 @@ describe GameBoard do
     let(:p1) { :p1 }
     let(:p2) { :p2 }
     context 'when player has 4 tokens in a horizontal line' do
-      let(:state) { [[p1, p1], [p1], [p1, p2], [p2, p2], [p1, p2, p1], [p2, p2], []] }
+      let(:state) { [[], [], [p1, p2], [p2, p2], [p1, p2], [p2, p2], []] }
       subject(:game_board) { described_class.new(state) }
 
       it 'returns true' do
@@ -109,7 +109,7 @@ describe GameBoard do
     end
 
     context 'when player has 4 tokens in a vertical line' do
-      let(:state) { [[p2, p1], [p1, p1, p1], [p2, p1], [p1, p2, p1], [p1, p2, p2, p2, p2], [p1, p2], [p2]] }
+      let(:state) { [[], [], [], [], [p1, p1, p2, p2, p2, p2], [], []] }
       subject(:game_board) { described_class.new(state) }
 
       it 'returns true' do
@@ -132,6 +132,15 @@ describe GameBoard do
 
       it 'returns true' do
         expect(game_board.win?(p2)).to be true
+      end
+    end
+
+    context 'when player has one token in the board' do
+      let(:state) { [[], [], [], [p2], [], [], []] }
+      subject(:game_board) { described_class.new(state) }
+
+      it 'returns false' do
+        expect(game_board.win?(p2)).to be false
       end
     end
   end
