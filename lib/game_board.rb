@@ -5,8 +5,8 @@ class GameBoard
     @state = state
   end
 
-  def update(value, column)
-    state[column].push(value)
+  def update(token, column)
+    state[column].push(token)
   end
 
   def draw
