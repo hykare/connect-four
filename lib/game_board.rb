@@ -1,4 +1,5 @@
 require_relative 'position'
+require_relative 'direction'
 
 class GameBoard
   attr_reader :state
@@ -42,13 +43,7 @@ class GameBoard
   end
 
   def win?(player_token)
-    direction_vectors = [
-      { row: 0, col: 1 },
-      { row: 1, col: 0 },
-      { row: 1, col: 1 },
-      { row: 1, col: -1 }
-    ]
-    direction_vectors.each do |direction|
+    Direction.all do |direction|
       each_position do |position|
         line = line_for(position, direction)
         return true if line.all? { |token| token == player_token }
@@ -68,9 +63,9 @@ class GameBoard
   def line_for(position, direction)
     row = position.row
     column = position.column
-    [state.dig(column + 0 * direction[:col], row + 0 * direction[:row]),
-     state.dig(column + 1 * direction[:col], row + 1 * direction[:row]),
-     state.dig(column + 2 * direction[:col], row + 2 * direction[:row]),
-     state.dig(column + 3 * direction[:col], row + 3 * direction[:row])]
+    [state.dig(column + 0 * direction.column, row + 0 * direction.row),
+     state.dig(column + 1 * direction.column, row + 1 * direction.row),
+     state.dig(column + 2 * direction.column, row + 2 * direction.row),
+     state.dig(column + 3 * direction.column, row + 3 * direction.row)]
   end
 end
