@@ -40,7 +40,7 @@ class GameBoard
   end
 
   def win?(player_token)
-    offsets = [
+    direction_vectors = [
       { row: 0, col: 1 },
       { row: 1, col: 0 },
       { row: 1, col: 1 },
@@ -49,8 +49,8 @@ class GameBoard
 
     (0..5).each do |row|
       (0..6).each do |column|
-        offsets.each do |offset|
-          line = line_for(row, column, offset)
+        direction_vectors.each do |direction|
+          line = line_for(row, column, direction)
           return true if line.all? { |token| token == player_token }
         end
       end
@@ -58,10 +58,10 @@ class GameBoard
     false
   end
 
-  def line_for(row, column, offset)
+  def line_for(row, column, direction)
     [state.dig(column, row),
-     state.dig(column + 1 * offset[:col], row + 1 * offset[:row]),
-     state.dig(column + 2 * offset[:col], row + 2 * offset[:row]),
-     state.dig(column + 3 * offset[:col], row + 3 * offset[:row])]
+     state.dig(column + 1 * direction[:col], row + 1 * direction[:row]),
+     state.dig(column + 2 * direction[:col], row + 2 * direction[:row]),
+     state.dig(column + 3 * direction[:col], row + 3 * direction[:row])]
   end
 end
