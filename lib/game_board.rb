@@ -46,19 +46,26 @@ class GameBoard
       { row: 1, col: 1 },
       { row: 1, col: -1 }
     ]
-
-    (0..5).each do |row|
-      (0..6).each do |column|
-        direction_vectors.each do |direction|
-          line = line_for(row, column, direction)
-          return true if line.all? { |token| token == player_token }
-        end
+    direction_vectors.each do |direction|
+      each_position do |position|
+        line = line_for(position, direction)
+        return true if line.all? { |token| token == player_token }
       end
     end
     false
   end
 
-  def line_for(row, column, direction)
+  def each_position
+    (0..5).each do |row|
+      (0..6).each do |column|
+        yield [row, column]
+      end
+    end
+  end
+
+  def line_for(position, direction)
+    row = position[0]
+    column = position[1]
     [state.dig(column, row),
      state.dig(column + 1 * direction[:col], row + 1 * direction[:row]),
      state.dig(column + 2 * direction[:col], row + 2 * direction[:row]),
