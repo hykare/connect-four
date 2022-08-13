@@ -1,3 +1,5 @@
+require_relative 'position'
+
 class GameBoard
   attr_reader :state
 
@@ -58,15 +60,15 @@ class GameBoard
   def each_position
     (0..5).each do |row|
       (0..6).each do |column|
-        yield [row, column]
+        yield Position.new(row, column)
       end
     end
   end
 
   def line_for(position, direction)
-    row = position[0]
-    column = position[1]
-    [state.dig(column, row),
+    row = position.row
+    column = position.column
+    [state.dig(column + 0 * direction[:col], row + 0 * direction[:row]),
      state.dig(column + 1 * direction[:col], row + 1 * direction[:row]),
      state.dig(column + 2 * direction[:col], row + 2 * direction[:row]),
      state.dig(column + 3 * direction[:col], row + 3 * direction[:row])]
