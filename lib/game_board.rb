@@ -50,15 +50,18 @@ class GameBoard
     (0..5).each do |row|
       (0..6).each do |column|
         offsets.each do |offset|
-          line = [state.dig(column, row),
-                  state.dig(column + 1 * offset[:col], row + 1 * offset[:row]),
-                  state.dig(column + 2 * offset[:col], row + 2 * offset[:row]),
-                  state.dig(column + 3 * offset[:col], row + 3 * offset[:row])]
-
+          line = line_for(row, column, offset)
           return true if line.all? { |token| token == player_token }
         end
       end
     end
     false
+  end
+
+  def line_for(row, column, offset)
+    [state.dig(column, row),
+     state.dig(column + 1 * offset[:col], row + 1 * offset[:row]),
+     state.dig(column + 2 * offset[:col], row + 2 * offset[:row]),
+     state.dig(column + 3 * offset[:col], row + 3 * offset[:row])]
   end
 end
