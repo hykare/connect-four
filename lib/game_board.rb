@@ -19,23 +19,25 @@ class GameBoard
     column_numbers = "  1    2    3    4    5    6    7\n"
     token_rows = []
 
-    5.downto(0) do |row|
-      token_row = ""
-      0.upto(6) do |column|
-        token = state[column][row]
-
-        token_row << "┃ "
-        token_row << (token.nil? ? "  " : token)
-        token_row << " "
-      end
-      token_row << "┃\n"
-      token_rows.push(token_row)
+    rows_top_down do |row|
+      row.map! { |token| token.nil? ? "  " : token }
+      token_rows.push("┃ " + row.join(" ┃ ") + " ┃\n")
     end
 
     print top_row
     print token_rows.join(separator_row)
     print bottom_row
     print column_numbers
+  end
+
+  def rows_top_down
+    5.downto(0) do |row|
+      token_row = []
+      0.upto(6) do |column|
+        token_row.push(state[column][row])
+      end
+      yield token_row
+    end
   end
 
   def full?
