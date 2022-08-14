@@ -61,11 +61,9 @@ class GameBoard
   end
 
   def line_for(position, direction)
-    row = position.row
-    column = position.column
-    [state.dig(column + 0 * direction.column, row + 0 * direction.row),
-     state.dig(column + 1 * direction.column, row + 1 * direction.row),
-     state.dig(column + 2 * direction.column, row + 2 * direction.row),
-     state.dig(column + 3 * direction.column, row + 3 * direction.row)]
+    [state.dig(position.column + 0 * direction.column, position.row + 0 * direction.row),
+     state.dig(position.column + 1 * direction.column, position.row + 1 * direction.row),
+     state.dig(position.column + 2 * direction.column, position.row + 2 * direction.row),
+     state.dig(position.column + 3 * direction.column, position.row + 3 * direction.row)]
   end
 end
