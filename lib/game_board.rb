@@ -2,14 +2,12 @@ require_relative 'position'
 require_relative 'direction'
 
 class GameBoard
-  attr_reader :state
-
   def initialize(state = Array.new(7) { [] })
     @state = state
   end
 
   def update(token, column)
-    state[column].push(token)
+    @state[column].push(token)
   end
 
   def draw
@@ -34,14 +32,18 @@ class GameBoard
     5.downto(0) do |row|
       token_row = []
       0.upto(6) do |column|
-        token_row.push(state[column][row])
+        token_row.push(token_at(row, column))
       end
       yield token_row
     end
   end
 
+  def token_at(row, column)
+    @state.dig(column, row)
+  end
+
   def full?
-    state.all? { |row| row.length == 6 }
+    @state.all? { |column| column.length == 6 }
   end
 
   def win?(player_token)
@@ -63,9 +65,9 @@ class GameBoard
   end
 
   def line_for(position, direction)
-    [state.dig(position.column + 0 * direction.column, position.row + 0 * direction.row),
-     state.dig(position.column + 1 * direction.column, position.row + 1 * direction.row),
-     state.dig(position.column + 2 * direction.column, position.row + 2 * direction.row),
-     state.dig(position.column + 3 * direction.column, position.row + 3 * direction.row)]
+    [token_at(position.column + 0 * direction.column, position.row + 0 * direction.row),
+     token_at(position.column + 1 * direction.column, position.row + 1 * direction.row),
+     token_at(position.column + 2 * direction.column, position.row + 2 * direction.row),
+     token_at(position.column + 3 * direction.column, position.row + 3 * direction.row)]
   end
 end

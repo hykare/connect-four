@@ -58,7 +58,7 @@ describe GameBoard do
       it 'puts in a token in an empty column' do
         value = :player1
         column = 0
-        expect { game_board.update(value, column) }.to change { game_board.state[column] }.to([value])
+        expect { game_board.update(value, column) }.to change { game_board.token_at(0, column) }.to(value)
       end
     end
 
@@ -69,8 +69,7 @@ describe GameBoard do
       it 'adds the token at the top of a column' do
         value = :player1
         column = 2
-        game_board.update(value, column)
-        expect(game_board.state[column].last).to be value
+        expect { game_board.update(value, column) }.to change { game_board.token_at(3, column) }.to(value)
       end
     end
   end
