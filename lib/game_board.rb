@@ -2,6 +2,9 @@ require_relative 'position'
 require_relative 'direction'
 
 class GameBoard
+  COL_NO = 7
+  ROW_NO = 6
+
   def initialize(state = Array.new(7) { [] })
     @state = state
   end
@@ -29,9 +32,9 @@ class GameBoard
   end
 
   def rows_top_down
-    5.downto(0) do |row|
+    (ROW_NO - 1).downto(0) do |row|
       token_row = []
-      0.upto(6) do |column|
+      0.upto(COL_NO - 1) do |column|
         token_row.push(token_at(row, column))
       end
       yield token_row
@@ -57,8 +60,8 @@ class GameBoard
   end
 
   def each_position
-    (0..5).each do |row|
-      (0..6).each do |column|
+    (0..ROW_NO - 1).each do |row|
+      (0..COL_NO - 1).each do |column|
         yield Position.new(row, column)
       end
     end
