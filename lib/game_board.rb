@@ -31,20 +31,6 @@ class GameBoard
     print column_numbers
   end
 
-  def rows_top_down
-    (ROW_NO - 1).downto(0) do |row|
-      token_row = []
-      0.upto(COL_NO - 1) do |column|
-        token_row.push(token_at(row, column))
-      end
-      yield token_row
-    end
-  end
-
-  def token_at(row, column)
-    @state.dig(column, row)
-  end
-
   def full?
     @state.all? { |column| column.length == 6 }
   end
@@ -57,6 +43,22 @@ class GameBoard
       end
     end
     false
+  end
+
+  def token_at(row, column)
+    @state.dig(column, row)
+  end
+
+  private
+
+  def rows_top_down
+    (ROW_NO - 1).downto(0) do |row|
+      token_row = []
+      0.upto(COL_NO - 1) do |column|
+        token_row.push(token_at(row, column))
+      end
+      yield token_row
+    end
   end
 
   def each_position
