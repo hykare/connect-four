@@ -6,4 +6,4 @@ Part of [The Odin Project](https://www.theodinproject.com) open-source curriculu
 
 ## Goals
 - practice TDD
-- apply design rules from 99 bottles of OOP book
+- apply design and refactoring rules from 99 bottles of OOP book
